@@ -5,15 +5,15 @@
 #include <ctype.h>
 #include <math.h>
 
-#define MAX 50//максимальный размер выражений
+#define MAX 50//Г¬Г ГЄГ±ГЁГ¬Г Г«ГјГ­Г»Г© Г°Г Г§Г¬ГҐГ° ГўГ»Г°Г Г¦ГҐГ­ГЁГ©
 
-//элемент стека
+//ГЅГ«ГҐГ¬ГҐГ­ГІ Г±ГІГҐГЄГ 
 typedef struct node
 {
 	char data;
 	struct node *next;
 } Nd;
-// метод, который добавляет элемент в стек
+// Г¬ГҐГІГ®Г¤, ГЄГ®ГІГ®Г°Г»Г© Г¤Г®ГЎГ ГўГ«ГїГҐГІ ГЅГ«ГҐГ¬ГҐГ­ГІ Гў Г±ГІГҐГЄ
 void Push(Nd **head, char value)
 {
 	Nd *tmp = malloc(sizeof(Nd));
@@ -21,12 +21,12 @@ void Push(Nd **head, char value)
 	tmp->data = value;
 	*head = tmp;
 }
-//проверка пуст ли стек
+//ГЇГ°Г®ГўГҐГ°ГЄГ  ГЇГіГ±ГІ Г«ГЁ Г±ГІГҐГЄ
 int IsEmpty(Nd *head)
 {
 	return head == NULL;
 }
-//метод, который достает элемент из стека
+//Г¬ГҐГІГ®Г¤, ГЄГ®ГІГ®Г°Г»Г© Г¤Г®Г±ГІГ ГҐГІ ГЅГ«ГҐГ¬ГҐГ­ГІ ГЁГ§ Г±ГІГҐГЄГ 
 char Pop(Nd **head)
 {
 	Nd *tmp;
@@ -37,19 +37,18 @@ char Pop(Nd **head)
 	free(tmp);
 	return value;
 }
-//метод для продолжения работы с программой
+//Г¬ГҐГІГ®Г¤ Г¤Г«Гї ГЇГ°Г®Г¤Г®Г«Г¦ГҐГ­ГЁГї Г°Г ГЎГ®ГІГ» Г± ГЇГ°Г®ГЈГ°Г Г¬Г¬Г®Г©
 int WeContinue()
 {
 	char answer = ' ';
 	while (1)
 	{
-		system("cls");
-		printf("Еще раз?(y/n)\n");
+		printf("We continue?(y/n)\n");
 		answer = getchar();
 		if (answer != 'y' && answer != 'n')
 		{
-			printf("Некорректный  вод!!! Попробуйте еще раз(y - да /n - нет)\n");
-			system("pause");
+			printf("Wrong input!!! Try again(y - yes /n - no)\nTo continue press any key...\n");
+			getchar();
 		}
 		else
 		{
@@ -63,15 +62,15 @@ int WeContinue()
 	}
 	
 }
-//проверка является ли текущий символ операцией
+//ГЇГ°Г®ГўГҐГ°ГЄГ  ГїГўГ«ГїГҐГІГ±Гї Г«ГЁ ГІГҐГЄГіГ№ГЁГ© Г±ГЁГ¬ГўГ®Г« Г®ГЇГҐГ°Г Г¶ГЁГҐГ©
 int IsOperator(char operator)
 {
-	if (operator == '+' || operator == '-' || operator == '*' || operator == '/' || operator == '_')//'_' - символ, заменяющий унарный минус
+	if (operator == '+' || operator == '-' || operator == '*' || operator == '/' || operator == '_')//'_' - Г±ГЁГ¬ГўГ®Г«, Г§Г Г¬ГҐГ­ГїГѕГ№ГЁГ© ГіГ­Г Г°Г­Г»Г© Г¬ГЁГ­ГіГ±
 		return 1;
 	else
 		return 0;
 }
-//метод для отлавливания недопустимых выражений
+//Г¬ГҐГІГ®Г¤ Г¤Г«Гї Г®ГІГ«Г ГўГ«ГЁГўГ Г­ГЁГї Г­ГҐГ¤Г®ГЇГіГ±ГІГЁГ¬Г»Гµ ГўГ»Г°Г Г¦ГҐГ­ГЁГ©
 int SearchingErrors(char *expr, char *error)
 {
 	int err = 0, i,j = 0;
@@ -79,19 +78,19 @@ int SearchingErrors(char *expr, char *error)
 	{
 		if (expr[i] != ' ' && expr[i] != '.' && expr[i] != ',' &&
 			expr[i] != '(' && expr[i] != ')' &&
-			IsOperator(expr[i]) == 0 && isdigit(expr[i]) == 0)//если текущий символ является недопустимым
+			IsOperator(expr[i]) == 0 && isdigit(expr[i]) == 0)//ГҐГ±Г«ГЁ ГІГҐГЄГіГ№ГЁГ© Г±ГЁГ¬ГўГ®Г« ГїГўГ«ГїГҐГІГ±Гї Г­ГҐГ¤Г®ГЇГіГ±ГІГЁГ¬Г»Г¬
 		{
-			error[j++] = expr[i];//его запоминаем
-			err = 1;//флаг, говорящий, что был найден недопустимый символ
+			error[j++] = expr[i];//ГҐГЈГ® Г§Г ГЇГ®Г¬ГЁГ­Г ГҐГ¬
+			err = 1;//ГґГ«Г ГЈ, ГЈГ®ГўГ®Г°ГїГ№ГЁГ©, Г·ГІГ® ГЎГ»Г« Г­Г Г©Г¤ГҐГ­ Г­ГҐГ¤Г®ГЇГіГ±ГІГЁГ¬Г»Г© Г±ГЁГ¬ГўГ®Г«
 		}
 	}
 	error[j] = '\0';
 	return err;
 }
-//удаление пробелов
+//ГіГ¤Г Г«ГҐГ­ГЁГҐ ГЇГ°Г®ГЎГҐГ«Г®Гў
 void DeletingSpaces(char *expr)
 {
-	char buf[MAX]; int i, j = 0, isSpace = 0;// флаг, чтобы отметить был ли пробел
+	char buf[MAX]; int i, j = 0, isSpace = 0;// ГґГ«Г ГЈ, Г·ГІГ®ГЎГ» Г®ГІГ¬ГҐГІГЁГІГј ГЎГ»Г« Г«ГЁ ГЇГ°Г®ГЎГҐГ«
 	for (i = 0; expr[i] != '\n'; i++)
 	{
 		if (expr[i] != ' ')
@@ -100,12 +99,12 @@ void DeletingSpaces(char *expr)
 			isSpace = 1;
 	}
 	buf[j] = '\0';
-	if (isSpace != 0)//если не было пробела, то не копируем обртано
+	if (isSpace != 0)//ГҐГ±Г«ГЁ Г­ГҐ ГЎГ»Г«Г® ГЇГ°Г®ГЎГҐГ«Г , ГІГ® Г­ГҐ ГЄГ®ГЇГЁГ°ГіГҐГ¬ Г®ГЎГ°ГІГ Г­Г®
 		for (i = 0; buf[i] != '\0'; i++)
 			expr[i] = buf[i];
 	expr[i] = '\0';
 }
-//проверка скобок
+//ГЇГ°Г®ГўГҐГ°ГЄГ  Г±ГЄГ®ГЎГ®ГЄ
 int CheckingBrackets(char *expr)
 {
 	int counter = 0;
@@ -118,10 +117,10 @@ int CheckingBrackets(char *expr)
 	}
 	return counter == 0;
 }
-//метод, позволяюий узнать приоритет операции
+//Г¬ГҐГІГ®Г¤, ГЇГ®Г§ГўГ®Г«ГїГѕГЁГ© ГіГ§Г­Г ГІГј ГЇГ°ГЁГ®Г°ГЁГІГҐГІ Г®ГЇГҐГ°Г Г¶ГЁГЁ
 int GetingPriority(char operator)
 {
-	if (operator == '_')//если унарный оператор
+	if (operator == '_')//ГҐГ±Г«ГЁ ГіГ­Г Г°Г­Г»Г© Г®ГЇГҐГ°Г ГІГ®Г°
 		return 4;
 	else
 	{
@@ -138,7 +137,7 @@ int GetingPriority(char operator)
 	}
 	return 0;
 }
-//проверка является ли символ числом
+//ГЇГ°Г®ГўГҐГ°ГЄГ  ГїГўГ«ГїГҐГІГ±Гї Г«ГЁ Г±ГЁГ¬ГўГ®Г« Г·ГЁГ±Г«Г®Г¬
 int IsConst(char ch)
 {
 	if (isdigit(ch) != 0 || ch == '.' || ch == ',')
@@ -146,17 +145,17 @@ int IsConst(char ch)
 	else
 		return 0;
 }
-//проверка является ли операция унарной
+//ГЇГ°Г®ГўГҐГ°ГЄГ  ГїГўГ«ГїГҐГІГ±Гї Г«ГЁ Г®ГЇГҐГ°Г Г¶ГЁГї ГіГ­Г Г°Г­Г®Г©
 int IsUnary(char ch)
 {
 	return ch == '(' || IsOperator(ch);
-	//обычно унарная операция стоит перед открывающей скобкой, перед бинарной операцией или в начале выражения
+	//Г®ГЎГ»Г·Г­Г® ГіГ­Г Г°Г­Г Гї Г®ГЇГҐГ°Г Г¶ГЁГї Г±ГІГ®ГЁГІ ГЇГҐГ°ГҐГ¤ Г®ГІГЄГ°Г»ГўГ ГѕГ№ГҐГ© Г±ГЄГ®ГЎГЄГ®Г©, ГЇГҐГ°ГҐГ¤ ГЎГЁГ­Г Г°Г­Г®Г© Г®ГЇГҐГ°Г Г¶ГЁГҐГ© ГЁГ«ГЁ Гў Г­Г Г·Г Г«ГҐ ГўГ»Г°Г Г¦ГҐГ­ГЁГї
 }
-//перевод исходного выражения в "обратную польскую запись"
+//ГЇГҐГ°ГҐГўГ®Г¤ ГЁГ±ГµГ®Г¤Г­Г®ГЈГ® ГўГ»Г°Г Г¦ГҐГ­ГЁГї Гў "Г®ГЎГ°Г ГІГ­ГіГѕ ГЇГ®Г«ГјГ±ГЄГіГѕ Г§Г ГЇГЁГ±Гј"
 void ConvertToRPN(char *expr, char *RPN)
 {
-	Nd *head = NULL;//начало стека
-	int j = 0, mayUnary = 1;//mayUnary-флаг, который указывается, что следующая операция может быть унарной
+	Nd *head = NULL;//Г­Г Г·Г Г«Г® Г±ГІГҐГЄГ 
+	int j = 0, mayUnary = 1;//mayUnary-ГґГ«Г ГЈ, ГЄГ®ГІГ®Г°Г»Г© ГіГЄГ Г§Г»ГўГ ГҐГІГ±Гї, Г·ГІГ® Г±Г«ГҐГ¤ГіГѕГ№Г Гї Г®ГЇГҐГ°Г Г¶ГЁГї Г¬Г®Г¦ГҐГІ ГЎГ»ГІГј ГіГ­Г Г°Г­Г®Г©
 	for (int i = 0; i < (int)strlen(expr); i++)
 	{			
 		if (expr[i] == '(')
@@ -186,8 +185,8 @@ void ConvertToRPN(char *expr, char *RPN)
 				else
 				{
 					char currentOperator = expr[i];
-					if (mayUnary != 0 && ((i-1) < 0 | IsUnary(expr[i-1]) != 0))//если операция - унарный минус
-						currentOperator = '_';//помечаем ее символом '_'
+					if (mayUnary != 0 && ((i-1) < 0 | IsUnary(expr[i-1]) != 0))//ГҐГ±Г«ГЁ Г®ГЇГҐГ°Г Г¶ГЁГї - ГіГ­Г Г°Г­Г»Г© Г¬ГЁГ­ГіГ±
+						currentOperator = '_';//ГЇГ®Г¬ГҐГ·Г ГҐГ¬ ГҐГҐ Г±ГЁГ¬ГўГ®Г«Г®Г¬ '_'
 					if (IsEmpty(head) != 0 || GetingPriority(head->data) < GetingPriority(currentOperator))
 						Push(&head, currentOperator);
 					else
@@ -207,7 +206,7 @@ void ConvertToRPN(char *expr, char *RPN)
 	}
 	RPN[j] = '\0';
 }
-//перевод из символьного типа в тип double
+//ГЇГҐГ°ГҐГўГ®Г¤ ГЁГ§ Г±ГЁГ¬ГўГ®Г«ГјГ­Г®ГЈГ® ГІГЁГЇГ  Гў ГІГЁГЇ double
 double ConvertToDouble(char *ch)
 {
 	int intNumber = 0, counter = 0;
@@ -234,27 +233,27 @@ double ConvertToDouble(char *ch)
 	}
 	return intNumber + dbNumber;
 }
-//вычисления обратной польской записи
+//ГўГ»Г·ГЁГ±Г«ГҐГ­ГЁГї Г®ГЎГ°Г ГІГ­Г®Г© ГЇГ®Г«ГјГ±ГЄГ®Г© Г§Г ГЇГЁГ±ГЁ
 double Calculation(char *RPN)
 {
-	char operand[10];//переменная для хранения чисел в символьном виде
-	double stack[MAX];// стек для хранения чисел
-	int top = -1, k;//top - вершина стека
+	char operand[10];//ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г Гї Г¤Г«Гї ГµГ°Г Г­ГҐГ­ГЁГї Г·ГЁГ±ГҐГ« Гў Г±ГЁГ¬ГўГ®Г«ГјГ­Г®Г¬ ГўГЁГ¤ГҐ
+	double stack[MAX];// Г±ГІГҐГЄ Г¤Г«Гї ГµГ°Г Г­ГҐГ­ГЁГї Г·ГЁГ±ГҐГ«
+	int top = -1, k;//top - ГўГҐГ°ГёГЁГ­Г  Г±ГІГҐГЄГ 
 	for (int i = 0; i < (int)strlen(RPN); i++)
 	{
 		if (IsConst(RPN[i]) != 0)
 		{
 			k = 0;
 			while (IsConst(RPN[i]) != 0)
-				operand[k++] = RPN[i++];//достаем из строки числа в символьном виде
+				operand[k++] = RPN[i++];//Г¤Г®Г±ГІГ ГҐГ¬ ГЁГ§ Г±ГІГ°Г®ГЄГЁ Г·ГЁГ±Г«Г  Гў Г±ГЁГ¬ГўГ®Г«ГјГ­Г®Г¬ ГўГЁГ¤ГҐ
 			operand[k] = '\0';
 			stack[++top] = ConvertToDouble(operand);
 		}
 		else
 		{
-			if (IsOperator(RPN[i]) != 0)//если операция 
+			if (IsOperator(RPN[i]) != 0)//ГҐГ±Г«ГЁ Г®ГЇГҐГ°Г Г¶ГЁГї 
 			{
-				switch (RPN[i])//выполняем то или иное действие
+				switch (RPN[i])//ГўГ»ГЇГ®Г«Г­ГїГҐГ¬ ГІГ® ГЁГ«ГЁ ГЁГ­Г®ГҐ Г¤ГҐГ©Г±ГІГўГЁГҐ
 				{
 				case '+':
 					stack[top - 1] += stack[top];
@@ -283,7 +282,7 @@ double Calculation(char *RPN)
 	}
 	return stack[0];
 }
-//очистка потока stdin
+//Г®Г·ГЁГ±ГІГЄГ  ГЇГ®ГІГ®ГЄГ  stdin
 void CleaningStdin()
 {
 	int c;
@@ -295,40 +294,38 @@ void CleaningStdin()
 
 void main()
 {
-	setlocale(LC_ALL, "Russian");
-	char expression[MAX], wrongExpression[MAX], RPN[MAX];//Reverse Polish Notation(обратная польская нотация(запись))
-	int exit = 0;//флаг для выхода из программы
+	char expression[MAX], wrongExpression[MAX], RPN[MAX];//Reverse Polish Notation(Г®ГЎГ°Г ГІГ­Г Гї ГЇГ®Г«ГјГ±ГЄГ Гї Г­Г®ГІГ Г¶ГЁГї(Г§Г ГЇГЁГ±Гј))
+	int exit = 0;//ГґГ«Г ГЈ Г¤Г«Гї ГўГ»ГµГ®Г¤Г  ГЁГ§ ГЇГ°Г®ГЈГ°Г Г¬Г¬Г»
 	while (exit == 0)
 	{
-		system("cls");
-		printf("\t\t\t\t******Калькулятор******\n");
-		printf("Вводите арифметическое выражение...\n");
+		printf("\t\t\t\t******Calculator******\n");
+		printf("Please, enter expression...\n");
 		CleaningStdin();
 		fgets(expression, MAX, stdin);
 		if (expression[0] == '\n')
 		{
-			printf("Некорректный ввод, вы не ввели арифметическое выражение!!!\nДля продолжения нажмите любую клавишу...\n");
+			printf("Wrong input, You did not enter expression!!!\nTo continue press any key...\n");
 			getchar();
 		}
 		else
 		{
 			if (SearchingErrors(expression, wrongExpression) != 0)
 			{
-				printf("Некорректный ввод, строка содержит недопустимое выражение \"%s\"!!!\nДля продолжения нажмите любую клавишу...\n", wrongExpression);
+				printf("Wrong input, string contains invalid expression \"%s\"!!!\nTo continue press any key...\n\n", wrongExpression);
 				getchar();
 			}
 			else
 			{
 				if (CheckingBrackets(expression) == 0)
 				{
-					printf("Некорректный ввод, что-то напутанно со скобками!!!\nДля продолжения нажмите любую клавишу...\n");
+					printf("Wrong input, Please, check brackets!!!\nTo continue press any key...\n");
 					getchar();
 				}
 				else
 				{
 					DeletingSpaces(expression);
 					ConvertToRPN(expression, RPN);
-					printf("Результат: %.2f\nДля продолжения нажмите любую клавишу...\n", Calculation(RPN));
+					printf("Result: %.2f\nTo continue press any key...\n", Calculation(RPN));
 					getchar();
 				}
 			}
